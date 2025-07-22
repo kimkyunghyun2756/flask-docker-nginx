@@ -1,2 +1,2 @@
-Docker에 Flask server를 올리고 Nginx를 이용해 접속해본다.
-스스로의 학습 과정 기록용.
+MSA를위해 nginx/flask를 분리하고 각각의 서비스를 쿠버네티스 클러스터 파드에 올려 깃액션으로 CI/CD를 진행해보기 위한 테스트용 브랜치
+trigger test

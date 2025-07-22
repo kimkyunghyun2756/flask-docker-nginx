@@ -1,0 +1,29 @@
+name: Deploy Nginx
+
+on:
+  push:
+    branches:
+      - gctest
+    paths:
+      - 'nginx/**'
+
+jobs:
+  nginx-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+
+      - name: Build and Push Nginx Image
+        run: |
+          docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/nginx:latest ./nginx
+          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/nginx:latest
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl --kubeconfig=k8s/kubeconfig apply -f k8s/nginx-deployment.yaml
+

@@ -1,4 +1,0 @@
-Flask
-gunicorn
-opencv-python
-numpy

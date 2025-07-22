@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+        - name: flask-container
+          image: ghcr.io/kimkyunghyun2756/flask-app:latest  # 🔁 여기에 실제 이미지 경로 넣기
+          ports:
+            - containerPort: 8000
