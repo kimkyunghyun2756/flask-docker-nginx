@@ -21,6 +21,10 @@ jobs:
           docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/flask-app:latest ./flask-docker
           docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/flask-app:latest
 
+      - name : Create kubeconfig file
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+
       - name: Deploy to Kubernetes
         run: |
           kubectl --kubeconfig=k8s/kubeconfig apply -f k8s/flask-deployment.yaml

@@ -22,6 +22,9 @@ jobs:
         run: |
           docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/nginx:latest ./nginx
           docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/nginx:latest
+      - name: Create kubeconfig file
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
 
       - name: Deploy to Kubernetes
         run: |
